@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="6dp"
+    tools:context=".Activity.UbahActivity2">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tambah Data Petani"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="32dp"/>
+
+    <EditText
+        android:id="@+id/et_nama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nama Petani"
+        />
+
+    <EditText
+        android:id="@+id/et_alamat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Alamat Petani"
+        />
+
+    <EditText
+        android:id="@+id/et_provinsi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Provinsi Petani"
+        />
+
+    <EditText
+        android:id="@+id/et_kecamatan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kecamatan Petani"
+        />
+
+    <EditText
+        android:id="@+id/et_kelurahan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="kelurahan Petani"
+        />
+
+    <EditText
+        android:id="@+id/et_nama_istri"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nama Istri Petani"
+        />
+
+    <EditText
+        android:id="@+id/et_jumlah_lahan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Jumlah Lahan Petani"
+        />
+
+    <EditText
+        android:id="@+id/et_foto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Foto Petani"
+        />
+    <Button
+        android:id="@+id/btn_tambah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Simpan"/>
+
+</LinearLayout>
