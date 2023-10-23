@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetroServer {
     companion object {
-        private const val BASE_URL = "http://localhost:8080/"
+        val BASE_URL = "http://localhost:8080/petani/"
 
         // ...
 

@@ -1,77 +1,60 @@
 package com.example.apicrud.Activity
 
-import AdapterPetani
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apicrud.API.RetroServer
+import com.example.apicrud.AdapterPetani
 import com.example.apicrud.Models.ModelPetani
 import com.example.apicrud.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MainActivity : AppCompatActivity() {
-    private lateinit var rvpetani: RecyclerView
-    private lateinit var pbpetani: ProgressBar
-    private lateinit var fabTambah: FloatingActionButton
-
-    private lateinit var adPetani: RecyclerView.Adapter<*>
+    private lateinit var rvPetani: RecyclerView
+    private lateinit var pbPetani: ProgressBar
+    private lateinit var adPetani: AdapterPetani
     private lateinit var lmPetani: RecyclerView.LayoutManager
-    private val listpetani: MutableList<ModelPetani> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        rvpetani = findViewById(R.id.rvpetani)
-        pbpetani = findViewById(R.id.pb_petani)
-        fabTambah = findViewById(R.id.tab_tambah)
+        rvPetani = findViewById(R.id.rvpetani)
+        pbPetani = findViewById(R.id.pb_petani)
 
         lmPetani = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rvpetani.layoutManager = lmPetani
+        rvPetani.layoutManager = lmPetani
 
-        rvpetani.adapter = adPetani
+        // Inisialisasi AdapterPetani dengan daftar kosong
+        val petaniList = mutableListOf<ModelPetani>()
+        adPetani = AdapterPetani(this, petaniList)
+        rvPetani.adapter = adPetani
 
         fetchDataFromApi()
-
-
-        fabTambah.setOnClickListener {
-            startActivity(Intent(this, TambahActivity::class.java))
-
-
-        }
-
     }
 
     private fun fetchDataFromApi() {
-        pbpetani.visibility = View.VISIBLE
+        pbPetani.visibility = View.VISIBLE
 
-        val apiService = RetroServer.create() // Ganti dengan instance layanan Retrofit Anda
+        val apiService = RetroServer.create()
 
         val call = apiService.getDaftarPetani()
         call.enqueue(object : Callback<List<ModelPetani>> {
             override fun onResponse(call: Call<List<ModelPetani>>, response: Response<List<ModelPetani>>) {
                 if (response.isSuccessful) {
-                    val petaniList = response.body()
+                    val petaniList = response.body()?.toMutableList() ?: mutableListOf()
 
-                    // Inisialisasi adapter dengan daftar petani
-                    adPetani = AdapterPetani(this@MainActivity, petaniList) // Perhatikan penggunaan `this@MainActivity` untuk konteks
-
-                    // Set adapter ke RecyclerView
-                    rvpetani.adapter = adPetani
-
-                    // Sampaikan bahwa ada perubahan dalam data
-                    adPetani.notifyDataSetChanged()
+                    // Perbarui adapter dengan daftar yang diperbarui
+                    adPetani.updateData(petaniList)
 
                     // Sembunyikan ProgressBar
-                    pbpetani.visibility = View.GONE
-
+                    pbPetani.visibility = View.GONE
                 } else {
                     // Tangani jika respons tidak berhasil
                     // Misalnya, tampilkan pesan kesalahan
@@ -85,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
 
                 // Sembunyikan ProgressBar
-                pbpetani.visibility = View.GONE
+                pbPetani.visibility = View.GONE
             }
         })
     }

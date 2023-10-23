@@ -66,9 +66,9 @@
 
         <TextView
             android:id="@+id/foto"
-            android:layout_width="wrap_content"
+            android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:text="Foto"/>
+            android:text="Foto" />
 
     </LinearLayout>
 
